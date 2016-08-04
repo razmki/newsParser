@@ -14,7 +14,7 @@ function image(link, callback) {
 };
 	
 	var mainDiv = document.querySelector(".content");
-	mainDiv.classList.add('col-md-offset-1');
+	mainDiv.classList.add('col-md-offset-1', 'col-lg-offset-1','col-sm-offset-0', 'col-xs-offset-0');
 request('http://www.rbc.ru/', function (error, response, html) {
   if (!error && response.statusCode == 200) {
 	var $ = cheerio.load(html);
@@ -24,7 +24,7 @@ request('http://www.rbc.ru/', function (error, response, html) {
 		image(link, function(res) {
 			var elemDiv = document.createElement("div");
 			mainDiv.appendChild(elemDiv);
-			elemDiv.classList.add('col-md-5', 'col-lg-5', 'col-sm-12','boxShadow', 'marg');
+			elemDiv.classList.add('col-md-5', 'col-lg-5', 'col-sm-12', 'boxShadow', 'marg');
 			var a = document.createElement('a');
 			var img = document.createElement('img');
 			img.setAttribute('src', res);
@@ -32,10 +32,16 @@ request('http://www.rbc.ru/', function (error, response, html) {
 			a.setAttribute('href', link);
 			var p = document.createElement('p');
 			var nameEnd = document.createTextNode(name);
-			p.appendChild(nameEnd)
-			a.appendChild(img);
+			var span1 = document.createElement('span');
+			var span2 = document.createElement('span');
+			p.appendChild(nameEnd);
+			span1.appendChild(img);
+			span2.appendChild(p);
+			
+			a.appendChild(span1);
+			a.appendChild(span2);	
 			elemDiv.appendChild(a);
-			elemDiv.appendChild(p);	
+
 		});
 
 		}
