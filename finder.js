@@ -30730,30 +30730,50 @@ function extend() {
 var request = require('request');
 var cheerio = require('cheerio');
 
-	var elemDiv = document.createElement("div");
-	body = document.querySelector("body");
-	body.appendChild(elemDiv);
-	elemDiv.setAttribute("class", "main");
-	elemDiv.classList.add('col-md-offset-2', 'col-md-8', 'col-lg-offset-2');
-	var divMain = document.querySelector(".main");
+function image(link, callback) {
+	request(link, function(error, response, html) {
+		 if (!error && response.statusCode == 200) {
+	var _ = cheerio.load(html);
+	_('.article__main-image__image').each(function(i, element){
+		var nameimg = _(this)['0'].attribs.src;
+		callback(nameimg);
+	})
+}
+})
+};
+	
+	var mainDiv = document.querySelector(".content");
+	mainDiv.classList.add('col-md-offset-1');
 request('http://www.rbc.ru/', function (error, response, html) {
   if (!error && response.statusCode == 200) {
 	var $ = cheerio.load(html);
 	$('.main-feed__link').each(function(i, element){
 		var name = $(this).text();
 		var link = $(this)['0'].attribs['data-ati-url'];
-		var spans = document.createElement('span');
-		var a = document.createElement('a');
-		a.setAttribute('href', link);
-		var nameEnd = document.createTextNode(name);
-		a.appendChild(nameEnd);
-		spans.appendChild(a);
-		elemDiv.appendChild(spans);		
-		elemDiv.innerHTML += "<br>";
-		
-	});
+		image(link, function(res) {
+			var elemDiv = document.createElement("div");
+			mainDiv.appendChild(elemDiv);
+			elemDiv.classList.add('col-md-5', 'boxShadow', 'marg');
+			var a = document.createElement('a');
+			var img = document.createElement('img');
+			img.setAttribute('src', res);
+			img.classList.add('leftimg');
+			a.setAttribute('href', link);
+			var p = document.createElement('p');
+			var nameEnd = document.createTextNode(name);
+			p.appendChild(nameEnd)
+			a.appendChild(img);
+			elemDiv.appendChild(a);
+			elemDiv.appendChild(p);	
+		});
+
+		}
+	);
   }
 });
+
+
+
 
 
 },{"cheerio":254,"request":320}],254:[function(require,module,exports){
@@ -53590,7 +53610,7 @@ module.exports={
   "homepage": "https://github.com/cheeriojs/cheerio#readme",
   "_id": "cheerio@0.20.0",
   "_shasum": "5c710f2bab95653272842ba01c6ea61b3545ec35",
-  "_from": "cheerio@latest",
+  "_from": "cheerio@>=0.20.0 <0.21.0",
   "_npmVersion": "3.6.0",
   "_nodeVersion": "5.5.0",
   "_npmUser": {
@@ -53620,7 +53640,8 @@ module.exports={
     }
   ],
   "directories": {},
-  "_resolved": "https://registry.npmjs.org/cheerio/-/cheerio-0.20.0.tgz"
+  "_resolved": "https://registry.npmjs.org/cheerio/-/cheerio-0.20.0.tgz",
+  "readme": "ERROR: No README data found!"
 }
 
 },{}],320:[function(require,module,exports){

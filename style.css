@@ -1,6 +1,27 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300&subset=latin,cyrillic);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400&subset=latin,cyrillic);
 
-.main {
-	font-size:18px;
+p {
+	font-size:14px;
 	font-family: 'Roboto', sans-serif;
+}
+ .leftimg {
+    float:left; /* Выравнивание по левому краю */
+    margin: 7px 7px 7px 0; /* Отступы вокруг картинки */
+   }
+.marg {
+	margin-right: 8px !important;
+}
+.row {
+	margin-right: 0px !important;
+}
+
+.boxShadow {
+  width: 80%;
+  max-width: 550px;
+  margin: 1em auto;
+  padding: 1em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+}
+.col-md-offset-1 {
+	margin-left: 12.7% !important;
 }
